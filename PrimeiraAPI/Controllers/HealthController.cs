@@ -16,4 +16,5 @@ namespace PrimeiraAPI.Controllers
             return Ok("API está funcionando");
         }
     }
+
 }
