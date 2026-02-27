@@ -23,16 +23,16 @@ namespace PrimeiraAPI.Controllers
 
         // GET: api/AlunosCursos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AlunoCurso>>> GetAlunoCursos()
+        public async Task<ActionResult<IEnumerable<AlunoCurso>>> GetAlunosCursos()
         {
-            return await _context.AlunoCursos.ToListAsync();
+            return await _context.AlunosCursos.ToListAsync();
         }
 
         // GET: api/AlunosCursos/5
         [HttpGet("{id}")]
         public async Task<ActionResult<AlunoCurso>> GetAlunoCurso(Guid id)
         {
-            var alunoCurso = await _context.AlunoCursos.FindAsync(id);
+            var alunoCurso = await _context.AlunosCursos.FindAsync(id);
 
             if (alunoCurso == null)
             {
@@ -78,7 +78,7 @@ namespace PrimeiraAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<AlunoCurso>> PostAlunoCurso(AlunoCurso alunoCurso)
         {
-            _context.AlunoCursos.Add(alunoCurso);
+            _context.AlunosCursos.Add(alunoCurso);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetAlunoCurso", new { id = alunoCurso.AlunoCursoId }, alunoCurso);
@@ -88,13 +88,13 @@ namespace PrimeiraAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAlunoCurso(Guid id)
         {
-            var alunoCurso = await _context.AlunoCursos.FindAsync(id);
+            var alunoCurso = await _context.AlunosCursos.FindAsync(id);
             if (alunoCurso == null)
             {
                 return NotFound();
             }
 
-            _context.AlunoCursos.Remove(alunoCurso);
+            _context.AlunosCursos.Remove(alunoCurso);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -102,7 +102,7 @@ namespace PrimeiraAPI.Controllers
 
         private bool AlunoCursoExists(Guid id)
         {
-            return _context.AlunoCursos.Any(e => e.AlunoCursoId == id);
+            return _context.AlunosCursos.Any(e => e.AlunoCursoId == id);
         }
     }
 }

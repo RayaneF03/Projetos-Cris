@@ -12,8 +12,8 @@ using PrimeiraAPI.Data;
 namespace PrimeiraAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260227122204_Atalho")]
-    partial class Atalho
+    [Migration("20260227122215_TabelaCurso")]
+    partial class TabelaCurso
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,13 +25,25 @@ namespace PrimeiraAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("AlunoCurso", b =>
+                {
+                    b.Property<Guid>("AlunosAlunoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CursosCursoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("AlunosAlunoId", "CursosCursoId");
+
+                    b.HasIndex("CursosCursoId");
+
+                    b.ToTable("AlunoCurso");
+                });
+
             modelBuilder.Entity("PrimeiraAPI.Models.Aluno", b =>
                 {
                     b.Property<Guid>("AlunoId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("AlunoCursoId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool?>("CadastroAtivo")
@@ -55,8 +67,6 @@ namespace PrimeiraAPI.Migrations
 
                     b.HasKey("AlunoId");
 
-                    b.HasIndex("AlunoCursoId");
-
                     b.ToTable("Alunos");
                 });
 
@@ -78,16 +88,13 @@ namespace PrimeiraAPI.Migrations
 
                     b.HasIndex("CursoId");
 
-                    b.ToTable("AlunoCursos");
+                    b.ToTable("AlunosCursos");
                 });
 
             modelBuilder.Entity("PrimeiraAPI.Models.Curso", b =>
                 {
                     b.Property<Guid>("CursoId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("AlunoId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool?>("Ativo")
@@ -105,16 +112,22 @@ namespace PrimeiraAPI.Migrations
 
                     b.HasKey("CursoId");
 
-                    b.HasIndex("AlunoId");
-
                     b.ToTable("Cursos");
                 });
 
-            modelBuilder.Entity("PrimeiraAPI.Models.Aluno", b =>
+            modelBuilder.Entity("AlunoCurso", b =>
                 {
-                    b.HasOne("PrimeiraAPI.Models.AlunoCurso", null)
-                        .WithMany("alunos")
-                        .HasForeignKey("AlunoCursoId");
+                    b.HasOne("PrimeiraAPI.Models.Aluno", null)
+                        .WithMany()
+                        .HasForeignKey("AlunosAlunoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PrimeiraAPI.Models.Curso", null)
+                        .WithMany()
+                        .HasForeignKey("CursosCursoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("PrimeiraAPI.Models.AlunoCurso", b =>
@@ -134,23 +147,6 @@ namespace PrimeiraAPI.Migrations
                     b.Navigation("Aluno");
 
                     b.Navigation("Curso");
-                });
-
-            modelBuilder.Entity("PrimeiraAPI.Models.Curso", b =>
-                {
-                    b.HasOne("PrimeiraAPI.Models.Aluno", null)
-                        .WithMany("cursos")
-                        .HasForeignKey("AlunoId");
-                });
-
-            modelBuilder.Entity("PrimeiraAPI.Models.Aluno", b =>
-                {
-                    b.Navigation("cursos");
-                });
-
-            modelBuilder.Entity("PrimeiraAPI.Models.AlunoCurso", b =>
-                {
-                    b.Navigation("alunos");
                 });
 #pragma warning restore 612, 618
         }

@@ -2,23 +2,16 @@
 {
     public class AlunoCurso
     {
-        //identiicador unico do registro para associar um aluno a um curso
+        // Identificador único do registro da associação entre Aluno e Curso
         public Guid AlunoCursoId { get; set; }
-
-        //chave estrangeira para o aluno
+        // Chave estrangeira para o Aluno
         public Guid AlunoId { get; set; }
-
-        //propriedade de navegação para o aluno
+        //Propriedade de navegação para o Aluno
         public Aluno? Aluno { get; set; }
-
-        //chave estrangeira para o curso
+        // Chave estrangeira para o Curso
         public Guid CursoId { get; set; }
-
-        //propriedade de navegação para o curso
+        // Propriedade de navegação para o Curso
         public Curso? Curso { get; set; }
-
-        //propriedade de navegação para n:m com a entidade Aluno
-      
 
     }
 }

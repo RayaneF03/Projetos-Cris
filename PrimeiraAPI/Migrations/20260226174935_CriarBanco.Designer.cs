@@ -12,7 +12,7 @@ using PrimeiraAPI.Data;
 namespace PrimeiraAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260226174941_CriarBanco")]
+    [Migration("20260226174935_CriarBanco")]
     partial class CriarBanco
     {
         /// <inheritdoc />
