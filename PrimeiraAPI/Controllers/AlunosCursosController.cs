@@ -12,47 +12,47 @@ namespace PrimeiraAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AlunosController : ControllerBase
+    public class AlunosCursosController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public AlunosController(AppDbContext context)
+        public AlunosCursosController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Alunos
+        // GET: api/AlunosCursos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Aluno>>> GetAlunos()
+        public async Task<ActionResult<IEnumerable<AlunoCurso>>> GetAlunoCursos()
         {
-            return await _context.Alunos.ToListAsync();
+            return await _context.AlunoCursos.ToListAsync();
         }
 
-        // GET: api/Alunos/5
+        // GET: api/AlunosCursos/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Aluno>> GetAluno(Guid id)
+        public async Task<ActionResult<AlunoCurso>> GetAlunoCurso(Guid id)
         {
-            var aluno = await _context.Alunos.FindAsync(id);
+            var alunoCurso = await _context.AlunoCursos.FindAsync(id);
 
-            if (aluno == null)
+            if (alunoCurso == null)
             {
                 return NotFound();
             }
 
-            return aluno;
+            return alunoCurso;
         }
 
-        // PUT: api/Alunos/5
+        // PUT: api/AlunosCursos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAluno(Guid id, Aluno aluno)
+        public async Task<IActionResult> PutAlunoCurso(Guid id, AlunoCurso alunoCurso)
         {
-            if (id != aluno.AlunoId)
+            if (id != alunoCurso.AlunoCursoId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(aluno).State = EntityState.Modified;
+            _context.Entry(alunoCurso).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace PrimeiraAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AlunoExists(id))
+                if (!AlunoCursoExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace PrimeiraAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Alunos
+        // POST: api/AlunosCursos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Aluno>> PostAluno(Aluno aluno)
+        public async Task<ActionResult<AlunoCurso>> PostAlunoCurso(AlunoCurso alunoCurso)
         {
-            _context.Alunos.Add(aluno);
+            _context.AlunoCursos.Add(alunoCurso);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAluno", new { id = aluno.AlunoId }, aluno);
+            return CreatedAtAction("GetAlunoCurso", new { id = alunoCurso.AlunoCursoId }, alunoCurso);
         }
 
-        // DELETE: api/Alunos/5
+        // DELETE: api/AlunosCursos/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAluno(Guid id)
+        public async Task<IActionResult> DeleteAlunoCurso(Guid id)
         {
-            var aluno = await _context.Alunos.FindAsync(id);
-            if (aluno == null)
+            var alunoCurso = await _context.AlunoCursos.FindAsync(id);
+            if (alunoCurso == null)
             {
                 return NotFound();
             }
 
-            _context.Alunos.Remove(aluno);
+            _context.AlunoCursos.Remove(alunoCurso);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool AlunoExists(Guid id)
+        private bool AlunoCursoExists(Guid id)
         {
-            return _context.Alunos.Any(e => e.AlunoId == id);
+            return _context.AlunoCursos.Any(e => e.AlunoCursoId == id);
         }
     }
 }

@@ -18,7 +18,7 @@
         public Curso? Curso { get; set; }
 
         //propriedade de navegação para n:m com a entidade Aluno
-        public ICollection<Aluno> alunos { get; set; } = new List<Aluno>(); // Lista de cursos associados ao aluno (inicializada como uma lista vazia)
+      
 
     }
 }

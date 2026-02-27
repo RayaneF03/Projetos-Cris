@@ -10,5 +10,6 @@ namespace PrimeiraAPI.Models
         public bool? Ativo { get; set; }
         [DataType(DataType.Currency)]
         public decimal Mensalidade { get; set; }
+        public ICollection<Aluno> alunos { get; set; } = new List<Aluno>(); // Lista de cursos associados ao aluno (inicializada como uma lista vazia)
     }
 }
