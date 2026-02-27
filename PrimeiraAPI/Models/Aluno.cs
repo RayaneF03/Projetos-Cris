@@ -12,5 +12,8 @@ namespace PrimeiraAPI.Models
         public bool? CadastroAtivo { get; set; } // Indica se o cadastro do aluno está ativo ou inativo
         public decimal Mensalidade { get; set; } // Valor da mensalidade do aluno
         public DateTime? DataCadastro { get; set; } // Data de cadastro do aluno (opcional)
+
+        //propriedade de navegação para n:m com a entidade Curso
+        public ICollection<Curso> cursos { get; set; } = new List<Curso>(); // Lista de cursos associados ao aluno (inicializada como uma lista vazia)
     }
 }
